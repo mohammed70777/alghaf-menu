@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>منيو مطعم الغاف - تصميم حديث</title>
+<style>
+  :root {
+    --bg: #050814;
+    --card: #101729;
+    --accent: #ffb347;
+    --accent-soft: rgba(255,179,71,0.16);
+    --text-main: #f9fbff;
+    --text-sub: #9aa4c4;
+    --pill: #1b2340;
+    --border-soft: rgba(255,255,255,0.06);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top left,#182641,#050814 55%);
+    color: var(--text-main);
+  }
+  .shell {
+    max-width: 1200px;
+    margin: 24px auto 40px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: minmax(0,260px) minmax(0,1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: minmax(0,1fr); }
+  }
+  .brand-panel {
+    position: sticky;
+    top: 16px;
+    align-self: flex-start;
+    background: linear-gradient(160deg,#11182b,#050814);
+    border-radius: 22px;
+    padding: 20px 18px 18px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.6);
+    border: 1px solid var(--border-soft);
+  }
+  .brand-title-ar {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+  .brand-title-en {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+    margin-top: 4px;
+  }
+  .brand-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .chip {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--pill);
+    border: 1px solid rgba(255,255,255,0.04);
+    font-size: 11px;
+    color: var(--text-sub);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chip-dot {
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: #26e7a6;
+  }
+  .brand-note {
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+  .nav-heading {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-sub);
+    margin: 16px 0 6px;
+  }
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-list a {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 9px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--text-main);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.15s ease-out;
+  }
+  .nav-list a span.en {
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .nav-list a:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--border-soft);
+    transform: translateY(-1px);
+  }
+  .nav-price-note {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .category-section {
+    background: rgba(12,18,35,0.96);
+    border-radius: 22px;
+    border: 1px solid var(--border-soft);
+    padding: 16px 18px 20px;
+    box-shadow: 0 12px 45px rgba(0,0,0,0.55);
+  }
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .cat-title-ar {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .cat-title-en {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-sub);
+  }
+  .cat-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .menu-item {
+    display: grid;
+    grid-template-columns: 120px minmax(0,1fr);
+    gap: 10px;
+    padding: 9px;
+    border-radius: 16px;
+    background: #0b1120;
+    border: 1px solid rgba(148,163,184,0.22);
+  }
+  @media (max-width: 640px) {
+    .menu-item {
+      grid-template-columns: minmax(0,1fr);
+    }
+  }
+  .mi-image {
+    width: 100%;
+    height: 110px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #1f2937;
+  }
+  .mi-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mi-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+    min-width: 0;
+  }
+  .mi-names {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mi-name-ar {
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mi-name-en {
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .mi-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .mi-price {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .mi-cal {
+    font-size: 10px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="brand-panel">
+    <div class="brand-title-ar">مطعم الغاف</div>
+    <div class="brand-title-en">AL GHAF SEAFOOD &amp; GULF CUISINE</div>
+    <div class="brand-chip-row">
+      <div class="chip"><span class="chip-dot"></span>جلسات عائلية</div>
+      <div class="chip">مأكولات بحرية &amp; خليجية</div>
+      <div class="chip">الأسعار بالريال السعودي</div>
+    </div>
+    <div class="brand-note">
+      اختر قسمك المفضل من القائمة الجانبية، وستجد الأطباق مع صورة وسعر وقيمة
+      حرارية لكل صنف. تصميم مناسب للعرض على الجوال والتابلت.
+    </div>
+    <div class="nav-heading">الأقسام</div>
+    <ul class="nav-list">
+      <li><a href="#cat-soup"><span>شوربة</span><span class="en">Soup</span></a></li>
+      <li><a href="#cat-cold-appetizers"><span>مقبلات باردة</span><span class="en">Cold Appetizers</span></a></li>
+      <li><a href="#cat-your-kitchen"><span>مطبخكم</span><span class="en">Your kitchen</span></a></li>
+      <li><a href="#cat-our-choice"><span>اختيارنا</span><span class="en">Our choice</span></a></li>
+      <li><a href="#cat-rices"><span>عيوش</span><span class="en">Rices</span></a></li>
+      <li><a href="#cat-drinks"><span>مشروبات</span><span class="en">drinks</span></a></li>
+      <li><a href="#cat-sweets"><span>حلويات</span><span class="en">Sweets</span></a></li>
+      <li><a href="#cat-visitor-package"><span>جمعتنا</span><span class="en">Visitor Package</span></a></li>
+      <li><a href="#cat-ghaf-fridge"><span>ثلاجة الغاف</span><span class="en">Ghaf Fridge</span></a></li>
+    </ul>
+    <div class="nav-price-note">
+      * جميع الأسعار شاملة ضريبة القيمة المضافة.<br>
+      * يمكن تخصيص الأطباق حسب الطلب.
+    </div>
+  </aside>
+  <main class="content">
+
+    <section id="cat-soup" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">شوربة</div>
+          <div class="cat-title-en">Soup</div>
+        </div>
+        <div class="cat-tag">قسم شوربة</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Cream of Shrimp Soup 1.jpg" alt="شوربة روبيان بالكريمه">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">شوربة روبيان بالكريمه</div>
+            <div class="mi-name-en">Cream of Shrimp Soup</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">24 ر.س</div>
+            <div class="mi-cal">280 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Cream of Seafood Soup 1.jpg" alt="شوربة ثمار البحر بالكريمه">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">شوربة ثمار البحر بالكريمه</div>
+            <div class="mi-name-en">Cream of Seafood Soup</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">24 ر.س</div>
+            <div class="mi-cal">300 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Tom Yum Soup 1.jpg" alt="شوربة توم يوم">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">شوربة توم يوم</div>
+            <div class="mi-name-en">Tom Yum Soup</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">26 ر.س</div>
+            <div class="mi-cal">220 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-cold-appetizers" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">مقبلات باردة</div>
+          <div class="cat-title-en">Cold Appetizers</div>
+        </div>
+        <div class="cat-tag">قسم مقبلات باردة</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Hummus 2.jpg" alt="حمص ">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">حمص</div>
+            <div class="mi-name-en">Hummus</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">12 ر.س</div>
+            <div class="mi-cal">210 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Mutabbal 4.jpg" alt="متبل ">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">متبل</div>
+            <div class="mi-name-en">Mutabbal</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">12 ر.س</div>
+            <div class="mi-cal">190 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Baba Ghanoush 2.jpg" alt="بابا غنوج">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">بابا غنوج</div>
+            <div class="mi-name-en">Baba Ghanoush</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">12 ر.س</div>
+            <div class="mi-cal">180 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Rocca 1.jpg" alt="جرجير">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">جرجير</div>
+            <div class="mi-name-en">Rocca</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">11 ر.س</div>
+            <div class="mi-cal">90 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Tabbouleh 2.jpg" alt="تبولة">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">تبولة</div>
+            <div class="mi-name-en">Tabbouleh</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">14 ر.س</div>
+            <div class="mi-cal">130 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fattoush 1.jpg" alt="فتوش ">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">فتوش</div>
+            <div class="mi-name-en">Fattoush</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">14 ر.س</div>
+            <div class="mi-cal">140 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Green Salad 1.jpg" alt="سلطه خضراء">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">سلطه خضراء</div>
+            <div class="mi-name-en">Green Salad</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">13 ر.س</div>
+            <div class="mi-cal">80 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Cucumber with Yogurt 2.jpg" alt="خيار باللبن">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">خيار باللبن</div>
+            <div class="mi-name-en">Cucumber with Yogurt</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">10 ر.س</div>
+            <div class="mi-cal">100 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Mini Mezze 2.jpg" alt="ميني مازا">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">ميني مازا</div>
+            <div class="mi-name-en">Mini Mezze</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">25 ر.س</div>
+            <div class="mi-cal">350 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-your-kitchen" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">مطبخكم</div>
+          <div class="cat-title-en">Your kitchen</div>
+        </div>
+        <div class="cat-tag">قسم مطبخكم</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Harris 1.jpg" alt="هريس">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">هريس</div>
+            <div class="mi-name-en">Harris</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">18 ر.س</div>
+            <div class="mi-cal">280 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Jarish 1.jpg" alt="جريش">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">جريش</div>
+            <div class="mi-name-en">Jarish</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">18 ر.س</div>
+            <div class="mi-cal">320 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Margouk 1.jpg" alt="مرقوق">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مرقوق</div>
+            <div class="mi-name-en">Margouk</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">19 ر.س</div>
+            <div class="mi-cal">400 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Shrimp Hamsa 1.jpg" alt="حمسة روبيان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">حمسة روبيان</div>
+            <div class="mi-name-en">Shrimp Hamsa</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">45 ر.س</div>
+            <div class="mi-cal">370 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Eggplant Hamsa 1.jpg" alt="حمسة بازنجان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">حمسة بازنجان</div>
+            <div class="mi-name-en">Eggplant Hamsa</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">22 ر.س</div>
+            <div class="mi-cal">260 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Chicken Hamsa 1.jpg" alt="حمسة دياي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">حمسة دياي</div>
+            <div class="mi-name-en">Chicken Hamsa</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">25 ر.س</div>
+            <div class="mi-cal">380 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fillet Biryani 1.jpg" alt="برياني فيليه">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">برياني فيليه</div>
+            <div class="mi-name-en">Fillet Biryani</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">40 ر.س</div>
+            <div class="mi-cal">381 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Shrimp Biryani 1.jpg" alt="برياني روبيان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">برياني روبيان</div>
+            <div class="mi-name-en">Shrimp Biryani</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">50 ر.س</div>
+            <div class="mi-cal">382 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Chicken Biryani 1.jpg" alt="برياني دياي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">برياني دياي</div>
+            <div class="mi-name-en">Chicken Biryani</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">40 ر.س</div>
+            <div class="mi-cal">383 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Lamb Mahboos 1.jpg" alt="محبوس لحم">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">محبوس لحم</div>
+            <div class="mi-name-en">Lamb Mahboos</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">75 ر.س</div>
+            <div class="mi-cal">384 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Lamb Gozi 1.jpg" alt="غوزي لحم">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">غوزي لحم</div>
+            <div class="mi-name-en">Lamb Gozi</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">75 ر.س</div>
+            <div class="mi-cal">385 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-our-choice" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">اختيارنا</div>
+          <div class="cat-title-en">Our choice</div>
+        </div>
+        <div class="cat-tag">قسم اختيارنا</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fried Fillet.jpg" alt="فيله مقلي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">فيله مقلي</div>
+            <div class="mi-name-en">Fried Fillet</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">35 ر.س</div>
+            <div class="mi-cal">520 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Grilled Fillet.jpg" alt="فيله مشوي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">فيله مشوي</div>
+            <div class="mi-name-en">Grilled Fillet</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">35 ر.س</div>
+            <div class="mi-cal">320 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Grilled Kingfish.jpg" alt="كنعد مشوي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">كنعد مشوي</div>
+            <div class="mi-name-en">Grilled Kingfish</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">52 ر.س</div>
+            <div class="mi-cal">360 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fried Kingfish.jpg" alt="كنعد مقلي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">كنعد مقلي</div>
+            <div class="mi-name-en">Fried Kingfish</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">52 ر.س</div>
+            <div class="mi-cal">480 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Ghaf Fish.jpg" alt="سميكة الغاف">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">سميكة الغاف</div>
+            <div class="mi-name-en">Ghaf Fish</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">90 ر.س</div>
+            <div class="mi-cal">420 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fried Shrimp.jpg" alt="روبيان مقلي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">روبيان مقلي</div>
+            <div class="mi-name-en">Fried Shrimp</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">48 ر.س</div>
+            <div class="mi-cal">450 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Grilled Shrimp.jpg" alt="روبيان مشوي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">روبيان مشوي</div>
+            <div class="mi-name-en">Grilled Shrimp</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">50 ر.س</div>
+            <div class="mi-cal">280 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fried Crabs.jpg" alt="قباقب مقلي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">قباقب مقلي</div>
+            <div class="mi-name-en">Fried Crabs</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">39 ر.س</div>
+            <div class="mi-cal">460 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Grilled Crabs.jpg" alt="قباقب مشوي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">قباقب مشوي</div>
+            <div class="mi-name-en">Grilled Crabs</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">39 ر.س</div>
+            <div class="mi-cal">330 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Cheese Crabs.jpg" alt="قباقب جبن">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">قباقب جبن</div>
+            <div class="mi-name-en">Cheese Crabs</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">42 ر.س</div>
+            <div class="mi-cal">520 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Grilled Salmon.jpg" alt="سلمون مشوي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">سلمون مشوي</div>
+            <div class="mi-name-en">Grilled Salmon</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">52 ر.س</div>
+            <div class="mi-cal">390 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Seafood Casserole.jpg" alt="طاجن سيفود">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">طاجن سيفود</div>
+            <div class="mi-name-en">Seafood Casserole</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">42 ر.س</div>
+            <div class="mi-cal">410 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Fried Potatoes.jpg" alt="بطاطا مقلية">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">بطاطا مقلية</div>
+            <div class="mi-name-en">Fried Potatoes</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">8 ر.س</div>
+            <div class="mi-cal">310 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-rices" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">عيوش</div>
+          <div class="cat-title-en">Rices</div>
+        </div>
+        <div class="cat-tag">قسم عيوش</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Chicken Majboos.jpg" alt="مجبوس دياي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مجبوس دياي</div>
+            <div class="mi-name-en">Chicken Majboos</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">22 ر.س</div>
+            <div class="mi-cal">720 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Shrimp Majboos.jpg" alt="مجبوس روبيان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مجبوس روبيان</div>
+            <div class="mi-name-en">Shrimp Majboos</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">54 ر.س</div>
+            <div class="mi-cal">680 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Kingfish Matbak.jpg" alt="مطبق كنعد">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مطبق كنعد</div>
+            <div class="mi-name-en">Kingfish Matbak</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">52 ر.س</div>
+            <div class="mi-cal">600 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Zubaidi Matbak 500-600.jpg" alt="مطبق زبيدي 500/600">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مطبق زبيدي 500/600</div>
+            <div class="mi-name-en">Zubaidi Matbak 500/600</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">75 ر.س</div>
+            <div class="mi-cal">720 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Shrimp Matbak.jpg" alt="مطبق روبيان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مطبق روبيان</div>
+            <div class="mi-name-en">Shrimp Matbak</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">52 ر.س</div>
+            <div class="mi-cal">640 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="White rice.jpg" alt="زر ابيض">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">زر ابيض</div>
+            <div class="mi-name-en">White rice</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">8 ر.س</div>
+            <div class="mi-cal">220 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Matbak Rice.jpg" alt="رز مطبق">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">رز مطبق</div>
+            <div class="mi-name-en">Matbak Rice</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">8 ر.س</div>
+            <div class="mi-cal">350 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Sayyadiyah Rice.jpg" alt="رز صيادية">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">رز صيادية</div>
+            <div class="mi-name-en">Sayyadiyah Rice</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">8 ر.س</div>
+            <div class="mi-cal">351 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Biryani rice.jpg" alt="رز بريانى">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">رز بريانى</div>
+            <div class="mi-name-en">Biryani rice</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">8 ر.س</div>
+            <div class="mi-cal">352 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Sayadieh rice.jpg" alt="رز صيادية">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">رز صيادية</div>
+            <div class="mi-name-en">Sayadieh rice</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">8 ر.س</div>
+            <div class="mi-cal">350 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-drinks" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">مشروبات</div>
+          <div class="cat-title-en">drinks</div>
+        </div>
+        <div class="cat-tag">قسم مشروبات</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Pepsi.jpg" alt="بيبسي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">بيبسي</div>
+            <div class="mi-name-en">Pepsi</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">3.5 ر.س</div>
+            <div class="mi-cal">150 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="7UP.jpg" alt="سفن اب">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">سفن اب</div>
+            <div class="mi-name-en">7UP</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">3.5 ر.س</div>
+            <div class="mi-cal">150 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Sprite.jpg" alt="سبرايت">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">سبرايت</div>
+            <div class="mi-name-en">Sprite</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">3.5 ر.س</div>
+            <div class="mi-cal">150 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Miranda Orange.jpg" alt="ميرندا برتقال">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">ميرندا برتقال</div>
+            <div class="mi-name-en">Miranda Orange</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">3.5 ر.س</div>
+            <div class="mi-cal">160 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Diet Pepsi.jpg" alt="دايت بيبسي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">دايت بيبسي</div>
+            <div class="mi-name-en">Diet Pepsi</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">3.5 ر.س</div>
+            <div class="mi-cal">1 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Diet Sprite.jpg" alt="دايت سبرايت">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">دايت سبرايت</div>
+            <div class="mi-name-en">Diet Sprite</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">3.5 ر.س</div>
+            <div class="mi-cal">1 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Water.jpg" alt="مياه">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مياه</div>
+            <div class="mi-name-en">Water</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">2 ر.س</div>
+            <div class="mi-cal">0 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Saudi Drink Cup.jpg" alt="مشروب سعودي  كاس">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مشروب سعودي  كاس</div>
+            <div class="mi-name-en">Saudi Drink Cup</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">13 ر.س</div>
+            <div class="mi-cal">250 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Lemon Mint.jpg" alt="ليمون نعناع">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">ليمون نعناع</div>
+            <div class="mi-name-en">Lemon Mint</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">12 ر.س</div>
+            <div class="mi-cal">180 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Pomegranate Juice.jpg" alt="عصير رمان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">عصير رمان</div>
+            <div class="mi-name-en">Pomegranate Juice</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">12 ر.س</div>
+            <div class="mi-cal">160 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Orange.jpg" alt="برتقال">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">برتقال</div>
+            <div class="mi-name-en">Orange</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">14 ر.س</div>
+            <div class="mi-cal">150 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Ghaf Laban.jpg" alt="لبن الغاف">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">لبن الغاف</div>
+            <div class="mi-name-en">Ghaf Laban</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">11 ر.س</div>
+            <div class="mi-cal">190 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Saudi Drink (for four people).jpg" alt="مشروب سعودي (اربع اشخاص)">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">مشروب سعودي (اربع اشخاص)</div>
+            <div class="mi-name-en">Saudi Drink (for four people)</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">39 ر.س</div>
+            <div class="mi-cal">900 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-sweets" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">حلويات</div>
+          <div class="cat-title-en">Sweets</div>
+        </div>
+        <div class="cat-tag">قسم حلويات</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Umm Ali.jpg" alt="ام علي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">ام علي</div>
+            <div class="mi-name-en">Umm Ali</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">11 ر.س</div>
+            <div class="mi-cal">420 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Laqimat.jpg" alt="لقيمات">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">لقيمات</div>
+            <div class="mi-name-en">Laqimat</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">13 ر.س</div>
+            <div class="mi-cal">360 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-visitor-package" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">جمعتنا</div>
+          <div class="cat-title-en">Visitor Package</div>
+        </div>
+        <div class="cat-tag">قسم جمعتنا</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Ghaf Platter.jpg" alt="طبق الغاف">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">طبق الغاف</div>
+            <div class="mi-name-en">Ghaf Platter</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">250 ر.س</div>
+            <div class="mi-cal">4780 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Ghaf Face Whiteness.jpg" alt="وليمة  الغاف">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">وليمة  الغاف</div>
+            <div class="mi-name-en">Ghaf Face Whiteness</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">450 ر.س</div>
+            <div class="mi-cal">5705 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="cat-ghaf-fridge" class="category-section">
+      <header class="category-header">
+        <div>
+          <div class="cat-title-ar">ثلاجة الغاف</div>
+          <div class="cat-title-en">Ghaf Fridge</div>
+        </div>
+        <div class="cat-tag">قسم ثلاجة الغاف</div>
+      </header>
+      <div class="items-list">
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Hamour.jpg" alt="هامور">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">هامور</div>
+            <div class="mi-name-en">Hamour</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">109 ر.س</div>
+            <div class="mi-cal">370 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Sheri.jpg" alt="شعري">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">شعري</div>
+            <div class="mi-name-en">Sheri</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">84 ر.س</div>
+            <div class="mi-cal">340 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Dennis.jpg" alt="دنيس">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">دنيس</div>
+            <div class="mi-name-en">Dennis</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">85 ر.س</div>
+            <div class="mi-cal">360 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Sibas.jpg" alt="قاروص">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">قاروص</div>
+            <div class="mi-name-en">Sibas</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">80 ر.س</div>
+            <div class="mi-cal">350 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Andaq.jpg" alt="عندق">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">عندق</div>
+            <div class="mi-name-en">Andaq</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">83 ر.س</div>
+            <div class="mi-cal">330 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Kanad.jpg" alt="كنعد">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">كنعد</div>
+            <div class="mi-name-en">Kanad</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">133 ر.س</div>
+            <div class="mi-cal">360 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Safi.jpg" alt="صافي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">صافي</div>
+            <div class="mi-name-en">Safi</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">74 ر.س</div>
+            <div class="mi-cal">340 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Zubaidi.jpg" alt="زبيدي">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">زبيدي</div>
+            <div class="mi-name-en">Zubaidi</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">145 ر.س</div>
+            <div class="mi-cal">380 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Salmon.jpg" alt="سلمون">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">سلمون</div>
+            <div class="mi-name-en">Salmon</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">140 ر.س</div>
+            <div class="mi-cal">390 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Lobster.jpg" alt="استاكوزا">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">استاكوزا</div>
+            <div class="mi-name-en">Lobster</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">170 ر.س</div>
+            <div class="mi-cal">420 سعرة</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-item">
+        <div class="mi-image">
+          <img src="Shrimp.jpg" alt="روبيان">
+        </div>
+        <div class="mi-body">
+          <div class="mi-names">
+            <div class="mi-name-ar">روبيان</div>
+            <div class="mi-name-en">Shrimp</div>
+          </div>
+          <div class="mi-footer">
+            <div class="mi-price">140 ر.س</div>
+            <div class="mi-cal">380 سعرة</div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
