@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منيو مطعم الغاف - الإصدار الشامل</title>
-
+<title>منيو مطعم الغاف الذكي</title>
 <style>
   :root {
     --primary: #ea8a1a;
@@ -14,287 +13,236 @@
     --text-title: #0f172a;
     --text-body: #475569;
     --border: #e2e8f0;
-    --radius: 18px;
+    --radius: 20px;
   }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-body);
-    scroll-behavior: smooth;
-  }
+  body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg-main); color: var(--text-body); scroll-behavior: smooth; }
 
   /* Navigation */
-  .header-glass {
-    position: sticky; top: 0; z-index: 1000;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-bar {
-    max-width: 1200px; margin: 0 auto;
-    padding: 12px 20px;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .quick-cats-bar {
-    overflow-x: auto; white-space: nowrap;
-    padding: 10px 20px; background: #fff;
-    border-bottom: 1px solid var(--border);
-    scrollbar-width: none;
-  }
-  .quick-cats-bar::-webkit-scrollbar { display: none; }
-  .q-pill {
-    display: inline-block; padding: 7px 16px; margin-left: 8px;
-    background: #f1f5f9; border-radius: 50px;
-    text-decoration: none; color: var(--text-body); font-size: 13px; font-weight: 600;
-  }
+  .header-glass { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-bar { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .quick-cats-bar { overflow-x: auto; white-space: nowrap; padding: 10px 20px; background: #fff; border-bottom: 1px solid var(--border); scrollbar-width: none; }
+  .q-pill { display: inline-block; padding: 7px 16px; margin-left: 8px; background: #f1f5f9; border-radius: 50px; text-decoration: none; color: var(--text-body); font-size: 13px; font-weight: 600; transition: 0.3s; }
   .q-pill.active { background: var(--primary); color: white; }
 
-  /* Main Structure */
-  .shell {
-    max-width: 1200px; margin: 20px auto;
-    display: grid; grid-template-columns: 280px 1fr; gap: 25px;
-    padding: 0 20px;
-  }
-  .sidebar { position: sticky; top: 140px; height: fit-content; }
-  .brand-card {
-    background: white; padding: 25px; border-radius: var(--radius);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); text-align: center;
-  }
+  .shell { max-width: 1200px; margin: 20px auto; padding: 0 15px 100px; }
+  .category-section { margin-bottom: 40px; scroll-margin-top: 150px; }
+  .section-title { font-size: 22px; font-weight: 800; color: var(--text-title); margin-bottom: 20px; border-right: 5px solid var(--primary); padding-right: 12px; }
 
-  /* Food Cards */
-  .category-section { margin-bottom: 50px; scroll-margin-top: 140px; }
-  .section-title {
-    font-size: 22px; font-weight: 800; color: var(--text-title);
-    margin-bottom: 20px; display: flex; align-items: center; gap: 15px;
-  }
-  .section-title::after { content: ''; flex: 1; height: 2px; background: var(--primary-soft); }
-
-  .items-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px;
-  }
-  .food-card {
-    background: white; border-radius: var(--radius); overflow: hidden;
-    border: 1px solid var(--border); display: flex; flex-direction: column;
-    transition: 0.3s ease;
-  }
-  .food-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-
-  .food-img { width: 100%; height: 180px; position: relative; background: #eee; }
-  .food-img img { width: 100%; height: 100%; object-fit: cover; }
-  .cal-badge {
-    position: absolute; top: 10px; left: 10px;
-    background: rgba(255,255,255,0.9); padding: 3px 8px;
-    border-radius: 8px; font-size: 10px; font-weight: 700; color: var(--primary);
-  }
-
-  .food-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
-  .name-ar { font-size: 17px; font-weight: 700; color: var(--text-title); margin-bottom: 2px; }
-  .name-en { font-size: 11px; color: var(--text-sub); text-transform: uppercase; }
+  /* Grid & Cards */
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 15px; }
   
-  .food-footer {
-    margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .price { font-size: 19px; font-weight: 900; color: var(--primary); }
+  .food-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: 0.3s; position: relative; display: flex; flex-direction: column; }
+  .food-card.selected { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary); }
 
-  @media (max-width: 900px) {
-    .shell { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .food-card { flex-direction: row; height: 120px; }
-    .food-img { width: 120px; height: 120px; }
-    .food-info { padding: 10px; }
-    .food-footer { border-top: none; padding-top: 5px; }
-    .items-grid { grid-template-columns: 1fr; }
-  }
+  .food-img { width: 100%; height: 140px; position: relative; background: #f8fafc; cursor: pointer; }
+  .food-img img { width: 100%; height: 100%; object-fit: cover; }
+  
+  /* علامة الاختيار الذكية */
+  .check-overlay { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; background: white; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: 0.2s; }
+  .food-card.selected .check-overlay { background: var(--primary); border-color: var(--primary); color: white; }
+  .food-card.selected .check-overlay::after { content: '✓'; font-weight: bold; font-size: 14px; }
+
+  .food-info { padding: 12px; flex-grow: 1; text-align: center; }
+  .name-ar { font-size: 15px; font-weight: 700; color: var(--text-title); margin-bottom: 5px; height: 40px; overflow: hidden; }
+  .price { font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+
+  /* التحكم في العدد */
+  .qty-control { display: none; align-items: center; justify-content: center; gap: 12px; padding-bottom: 12px; }
+  .food-card.selected .qty-control { display: flex; }
+  .btn-qty { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--primary); background: white; color: var(--primary); font-weight: bold; cursor: pointer; }
+  .num-qty { font-weight: 800; font-size: 15px; color: var(--text-title); }
+
+  /* Checkout Bar */
+  .checkout-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: var(--text-title); color: white; padding: 15px 25px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 2000; cursor: pointer; }
+
+  /* Summary Modal */
+  #order-summary { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000; display: none; padding: 30px 20px; overflow-y: auto; }
+  .summary-item { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 18px; }
 </style>
 </head>
 <body>
 
 <header class="header-glass">
   <div class="nav-bar">
-    <div>
-      <h1 style="margin: 0; font-size: 18px; color: var(--primary);">مطعم الغاف</h1>
-      <span style="font-size: 9px; color: var(--text-sub);">SEAFOOD & GULF CUISINE</span>
-    </div>
-    <div style="background: var(--primary-soft); color: var(--primary); padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700;">منيو 2026</div>
+    <h1 style="margin: 0; font-size: 18px; color: var(--primary);">منيو مطعم الغاف</h1>
   </div>
-  <nav class="quick-cats-bar">
-    <a href="#cat-soup" class="q-pill active">شوربة</a>
-    <a href="#cat-cold-appetizers" class="q-pill">مقبلات باردة</a>
-    <a href="#cat-your-kitchen" class="q-pill">مطبخكم</a>
-    <a href="#cat-our-choice" class="q-pill">اختيارنا</a>
-    <a href="#cat-rices" class="q-pill">عيوش</a>
-    <a href="#cat-drinks" class="q-pill">مشروبات</a>
-    <a href="#cat-sweets" class="q-pill">حلويات</a>
-    <a href="#cat-visitor-package" class="q-pill">جمعتنا</a>
-    <a href="#cat-ghaf-fridge" class="q-pill">ثلاجة الغاف</a>
-  </nav>
+  <nav class="quick-cats-bar" id="pill-nav"></nav>
 </header>
 
-<div class="shell">
-  <aside class="sidebar">
-    <div class="brand-card">
-      <h2 style="font-size: 18px;">مطعم الغاف</h2>
-      <p style="font-size: 11px;">مأكولات بحرية وخليجية أصلية</p>
-      <div style="text-align: right; font-size: 12px; border-top: 1px solid #f1f5f9; padding-top: 15px;">
-        <p>✅ جميع الأسعار شاملة الضريبة</p>
-        <p>📍 المنطقة الشرقية</p>
-      </div>
+<div class="shell" id="menu-container"></div>
+
+<div id="checkout-bar" class="checkout-bar" onclick="showSummary()">
+  <span id="total-count">0 أصناف</span>
+  <span style="font-weight: bold;">عرض الطلب للشيف ←</span>
+</div>
+
+<div id="order-summary">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2 style="color: var(--primary);">قائمة الطلب</h2>
+      <button onclick="hideSummary()" style="padding: 10px; border:none; background:#eee; border-radius:10px;">إغلاق</button>
     </div>
-  </aside>
-
-  <main>
-    <section id="cat-soup" class="category-section">
-      <h2 class="section-title">شوربة</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">280 سعرة</span><img src="Cream of Shrimp Soup 1.jpg"></div><div class="food-info"><div class="name-ar">شوربة روبيان بالكريمه</div><div class="name-en">Cream of Shrimp Soup</div><div class="food-footer"><div class="price">24 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">300 سعرة</span><img src="Cream of Seafood Soup 1.jpg"></div><div class="food-info"><div class="name-ar">شوربة ثمار البحر بالكريمه</div><div class="name-en">Cream of Seafood Soup</div><div class="food-footer"><div class="price">24 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">220 سعرة</span><img src="Tom Yum Soup 1.jpg"></div><div class="food-info"><div class="name-ar">شوربة توم يوم</div><div class="name-en">Tom Yum Soup</div><div class="food-footer"><div class="price">26 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-cold-appetizers" class="category-section">
-      <h2 class="section-title">مقبلات باردة</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">210 سعرة</span><img src="Hummus 2.jpg"></div><div class="food-info"><div class="name-ar">حمص</div><div class="name-en">Hummus</div><div class="food-footer"><div class="price">12 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">190 سعرة</span><img src="mutabbal 4.jpg"></div><div class="food-info"><div class="name-ar">متبل</div><div class="name-en">Mutabbal</div><div class="food-footer"><div class="price">12 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">180 سعرة</span><img src="Baba Ghanoush 2.jpg"></div><div class="food-info"><div class="name-ar">بابا غنوج</div><div class="name-en">Baba Ghanoush</div><div class="food-footer"><div class="price">12 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">90 سعرة</span><img src="Rocca 1.jpg"></div><div class="food-info"><div class="name-ar">جرجير</div><div class="name-en">Rocca</div><div class="food-footer"><div class="price">11 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">130 سعرة</span><img src="Tabbouleh 2.jpg"></div><div class="food-info"><div class="name-ar">تبولة</div><div class="name-en">Tabbouleh</div><div class="food-footer"><div class="price">14 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">140 سعرة</span><img src="Fattoush 1.jpg"></div><div class="food-info"><div class="name-ar">فتوش</div><div class="name-en">Fattoush</div><div class="food-footer"><div class="price">14 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">80 سعرة</span><img src="Green Salad 1.jpg"></div><div class="food-info"><div class="name-ar">سلطه خضراء</div><div class="name-en">Green Salad</div><div class="food-footer"><div class="price">13 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">100 سعرة</span><img src="Cucumber with Yogurt 2.jpg"></div><div class="food-info"><div class="name-ar">خيار باللبن</div><div class="name-en">Cucumber with Yogurt</div><div class="food-footer"><div class="price">10 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">350 سعرة</span><img src="Mini Mezze 2.jpg"></div><div class="food-info"><div class="name-ar">ميني مازا</div><div class="name-en">Mini Mezze</div><div class="food-footer"><div class="price">25 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-your-kitchen" class="category-section">
-      <h2 class="section-title">مطبخكم</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">280 سعرة</span><img src="Harris 1.jpg"></div><div class="food-info"><div class="name-ar">هريس</div><div class="name-en">Harris</div><div class="food-footer"><div class="price">18 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">320 سعرة</span><img src="Jarish 1.jpg"></div><div class="food-info"><div class="name-ar">جريش</div><div class="name-en">Jarish</div><div class="food-footer"><div class="price">18 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">400 سعرة</span><img src="Margouk 1.jpg"></div><div class="food-info"><div class="name-ar">مرقوق</div><div class="name-en">Margouk</div><div class="food-footer"><div class="price">19 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">370 سعرة</span><img src="Shrimp Hamsa 1.jpg"></div><div class="food-info"><div class="name-ar">حمسة روبيان</div><div class="name-en">Shrimp Hamsa</div><div class="food-footer"><div class="price">45 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">260 سعرة</span><img src="Eggplant Hamsa 1.jpg"></div><div class="food-info"><div class="name-ar">حمسة باذنجان</div><div class="name-en">Eggplant Hamsa</div><div class="food-footer"><div class="price">22 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">380 سعرة</span><img src="Chicken Hamsa 1.jpg"></div><div class="food-info"><div class="name-ar">حمسة دجاج</div><div class="name-en">Chicken Hamsa</div><div class="food-footer"><div class="price">25 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">381 سعرة</span><img src="Fillet Biryani 1.jpg"></div><div class="food-info"><div class="name-ar">برياني فيليه</div><div class="name-en">Fillet Biryani</div><div class="food-footer"><div class="price">35 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">382 سعرة</span><img src="Shrimp Biryani 1.jpg"></div><div class="food-info"><div class="name-ar">برياني روبيان</div><div class="name-en">Shrimp Biryani</div><div class="food-footer"><div class="price">50 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">383 سعرة</span><img src="Chicken Biryani 1.jpg"></div><div class="food-info"><div class="name-ar">برياني دجاج</div><div class="name-en">Chicken Biryani</div><div class="food-footer"><div class="price">35 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">384 سعرة</span><img src="Lamb Mahboos 1.jpg"></div><div class="food-info"><div class="name-ar">مجبوس لحم</div><div class="name-en">Lamb Mahboos</div><div class="food-footer"><div class="price">75 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">385 سعرة</span><img src="Lamb Gozi 1.jpg"></div><div class="food-info"><div class="name-ar">غوزي لحم</div><div class="name-en">Lamb Gozi</div><div class="food-footer"><div class="price">75 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-our-choice" class="category-section">
-      <h2 class="section-title">اختيارنا</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">520 سعرة</span><img src="Fried Fillet.jpg"></div><div class="food-info"><div class="name-ar">فيله مقلي</div><div class="name-en">Fried Fillet</div><div class="food-footer"><div class="price">35 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">320 سعرة</span><img src="Grilled Fillet.jpg"></div><div class="food-info"><div class="name-ar">فيله مشوي</div><div class="name-en">Grilled Fillet</div><div class="food-footer"><div class="price">35 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">360 سعرة</span><img src="Grilled Kingfish.jpg"></div><div class="food-info"><div class="name-ar">كنعد مشوي</div><div class="name-en">Grilled Kingfish</div><div class="food-footer"><div class="price">52 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">480 سعرة</span><img src="Fried Kingfish.jpg"></div><div class="food-info"><div class="name-ar">كنعد مقلي</div><div class="name-en">Fried Kingfish</div><div class="food-footer"><div class="price">52 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">420 سعرة</span><img src="Ghaf Fish.jpg"></div><div class="food-info"><div class="name-ar">سميكة الغاف</div><div class="name-en">Ghaf Fish</div><div class="food-footer"><div class="price">90 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">450 سعرة</span><img src="Fried Shrimp.jpg"></div><div class="food-info"><div class="name-ar">روبيان مقلي</div><div class="name-en">Fried Shrimp</div><div class="food-footer"><div class="price">48 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">280 سعرة</span><img src="Grilled Shrimp.jpg"></div><div class="food-info"><div class="name-ar">روبيان مشوي</div><div class="name-en">Grilled Shrimp</div><div class="food-footer"><div class="price">50 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">460 سعرة</span><img src="Fried Crabs.jpg"></div><div class="food-info"><div class="name-ar">قباقب مقلي</div><div class="name-en">Fried Crabs</div><div class="food-footer"><div class="price">39 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">330 سعرة</span><img src="Grilled Crabs.jpg"></div><div class="food-info"><div class="name-ar">قباقب مشوي</div><div class="name-en">Grilled Crabs</div><div class="food-footer"><div class="price">39 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">520 سعرة</span><img src="Cheese Crabs.jpg"></div><div class="food-info"><div class="name-ar">قباقب جبن</div><div class="name-en">Cheese Crabs</div><div class="food-footer"><div class="price">42 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">390 سعرة</span><img src="Grilled Salmon.jpg"></div><div class="food-info"><div class="name-ar">سلمون مشوي</div><div class="name-en">Grilled Salmon</div><div class="food-footer"><div class="price">52 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">410 سعرة</span><img src="Seafood Casserole.jpg"></div><div class="food-info"><div class="name-ar">طاجن سيفود</div><div class="name-en">Seafood Casserole</div><div class="food-footer"><div class="price">42 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">310 سعرة</span><img src="Fried Potatoes.jpg"></div><div class="food-info"><div class="name-ar">بطاطا مقلية</div><div class="name-en">Fried Potatoes</div><div class="food-footer"><div class="price">8 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-rices" class="category-section">
-      <h2 class="section-title">عيوش</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">720 سعرة</span><img src="Chicken Majboos.jpg"></div><div class="food-info"><div class="name-ar">مجبوس دجاج</div><div class="name-en">Chicken Majboos</div><div class="food-footer"><div class="price">22 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">680 سعرة</span><img src="Shrimp Majboos.jpg"></div><div class="food-info"><div class="name-ar">مجبوس روبيان</div><div class="name-en">Shrimp Majboos</div><div class="food-footer"><div class="price">54 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">600 سعرة</span><img src="Kingfish Matbak.jpg"></div><div class="food-info"><div class="name-ar">مطبق كنعد</div><div class="name-en">Kingfish Matbak</div><div class="food-footer"><div class="price">52 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">720 سعرة</span><img src="Zubaidi Matbak 500-600.jpg"></div><div class="food-info"><div class="name-ar">مطبق زبيدي 500/600</div><div class="name-en">Zubaidi Matbak</div><div class="food-footer"><div class="price">75 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">640 سعرة</span><img src="Shrimp Matbak.jpg"></div><div class="food-info"><div class="name-ar">مطبق روبيان</div><div class="name-en">Shrimp Matbak</div><div class="food-footer"><div class="price">52 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">220 سعرة</span><img src="White rice.jpg"></div><div class="food-info"><div class="name-ar">أرز أبيض</div><div class="name-en">White rice</div><div class="food-footer"><div class="price">8 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">350 سعرة</span><img src="Matbak Rice.jpg"></div><div class="food-info"><div class="name-ar">أرز مطبق</div><div class="name-en">Matbak Rice</div><div class="food-footer"><div class="price">8 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">351 سعرة</span><img src="Sayyadiyah Rice.jpg"></div><div class="food-info"><div class="name-ar">أرز صيادية</div><div class="name-en">Sayyadiyah Rice</div><div class="food-footer"><div class="price">8 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">352 سعرة</span><img src="Biryani rice.jpg"></div><div class="food-info"><div class="name-ar">أرز برياني</div><div class="name-en">Biryani rice</div><div class="food-footer"><div class="price">8 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">350 سعرة</span><img src="Sayadieh rice.jpg"></div><div class="food-info"><div class="name-ar">أرز صيادية (إضافي)</div><div class="name-en">Sayadieh rice</div><div class="food-footer"><div class="price">8 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-drinks" class="category-section">
-      <h2 class="section-title">مشروبات</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">150 سعرة</span><img src="Pepsi.jpg"></div><div class="food-info"><div class="name-ar">بيبسي</div><div class="name-en">Pepsi</div><div class="food-footer"><div class="price">3.5 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">150 سعرة</span><img src="7UP.jpg"></div><div class="food-info"><div class="name-ar">سفن اب</div><div class="name-en">7UP</div><div class="food-footer"><div class="price">3.5 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">150 سعرة</span><img src="Sprite.jpg"></div><div class="food-info"><div class="name-ar">سبرايت</div><div class="name-en">Sprite</div><div class="food-footer"><div class="price">3.5 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">160 سعرة</span><img src="Miranda Orange.jpg"></div><div class="food-info"><div class="name-ar">ميرندا برتقال</div><div class="name-en">Miranda Orange</div><div class="food-footer"><div class="price">3.5 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">1 سعرة</span><img src="Diet Pepsi.jpg"></div><div class="food-info"><div class="name-ar">دايت بيبسي</div><div class="name-en">Diet Pepsi</div><div class="food-footer"><div class="price">3.5 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">1 سعرة</span><img src="Diet Sprite.jpg"></div><div class="food-info"><div class="name-ar">دايت سبرايت</div><div class="name-en">Diet Sprite</div><div class="food-footer"><div class="price">3.5 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">0 سعرة</span><img src="Water.jpg"></div><div class="food-info"><div class="name-ar">مياه</div><div class="name-en">Water</div><div class="food-footer"><div class="price">2 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">250 سعرة</span><img src="Saudi Drink Cup.jpg"></div><div class="food-info"><div class="name-ar">مشروب سعودي كأس</div><div class="name-en">Saudi Drink Cup</div><div class="food-footer"><div class="price">13 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">180 سعرة</span><img src="Lemon Mint.jpg"></div><div class="food-info"><div class="name-ar">ليمون نعناع</div><div class="name-en">Lemon Mint</div><div class="food-footer"><div class="price">12 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">160 سعرة</span><img src="Pomegranate Juice.jpg"></div><div class="food-info"><div class="name-ar">عصير رمان</div><div class="name-en">Pomegranate Juice</div><div class="food-footer"><div class="price">12 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">150 سعرة</span><img src="Orange.jpg"></div><div class="food-info"><div class="name-ar">برتقال طازج</div><div class="name-en">Orange</div><div class="food-footer"><div class="price">14 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">190 سعرة</span><img src="Ghaf Laban.jpg"></div><div class="food-info"><div class="name-ar">لبن الغاف</div><div class="name-en">Ghaf Laban</div><div class="food-footer"><div class="price">11 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">900 سعرة</span><img src="Saudi Drink (for four people).jpg"></div><div class="food-info"><div class="name-ar">مشروب سعودي (4 أشخاص)</div><div class="name-en">Saudi Drink</div><div class="food-footer"><div class="price">39 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-sweets" class="category-section">
-      <h2 class="section-title">حلويات</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">420 سعرة</span><img src="Umm Ali.jpg"></div><div class="food-info"><div class="name-ar">أم علي</div><div class="name-en">Umm Ali</div><div class="food-footer"><div class="price">11 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">360 سعرة</span><img src="Laqimat.jpg"></div><div class="food-info"><div class="name-ar">لقيمات</div><div class="name-en">Laqimat</div><div class="food-footer"><div class="price">13 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-visitor-package" class="category-section">
-      <h2 class="section-title">جمعتنا</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">4780 سعرة</span><img src="Ghaf Platter.jpg"></div><div class="food-info"><div class="name-ar">طبق الغاف</div><div class="name-en">Ghaf Platter</div><div class="food-footer"><div class="price">250 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">5705 سعرة</span><img src="Ghaf Face Whiteness.jpg"></div><div class="food-info"><div class="name-ar">وليمة الغاف</div><div class="name-en">Ghaf Face Whiteness</div><div class="food-footer"><div class="price">450 ر.س</div></div></div></article>
-      </div>
-    </section>
-
-    <section id="cat-ghaf-fridge" class="category-section">
-      <h2 class="section-title">ثلاجة الغاف</h2>
-      <div class="items-grid">
-        <article class="food-card"><div class="food-img"><span class="cal-badge">370 سعرة</span><img src="Hamour.jpg"></div><div class="food-info"><div class="name-ar">هامور</div><div class="name-en">Hamour</div><div class="food-footer"><div class="price">109 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">340 سعرة</span><img src="Sheri.jpg"></div><div class="food-info"><div class="name-ar">شعري</div><div class="name-en">Sheri</div><div class="food-footer"><div class="price">84 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">360 سعرة</span><img src="Dennis.jpg"></div><div class="food-info"><div class="name-ar">دنيس</div><div class="name-en">Dennis</div><div class="food-footer"><div class="price">85 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">350 سعرة</span><img src="Sibas.jpg"></div><div class="food-info"><div class="name-ar">قاروص</div><div class="name-en">Sibas</div><div class="food-footer"><div class="price">80 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">330 سعرة</span><img src="Andaq.jpg"></div><div class="food-info"><div class="name-ar">عندق</div><div class="name-en">Andaq</div><div class="food-footer"><div class="price">83 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">360 سعرة</span><img src="Kanad.jpg"></div><div class="food-info"><div class="name-ar">كنعد</div><div class="name-en">Kanad</div><div class="food-footer"><div class="price">133 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">340 سعرة</span><img src="Safi.jpg"></div><div class="food-info"><div class="name-ar">صافي</div><div class="name-en">Safi</div><div class="food-footer"><div class="price">74 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">380 سعرة</span><img src="Zubaidi.jpg"></div><div class="food-info"><div class="name-ar">زبيدي</div><div class="name-en">Zubaidi</div><div class="food-footer"><div class="price">145 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">390 سعرة</span><img src="Salmon.jpg"></div><div class="food-info"><div class="name-ar">سلمون</div><div class="name-en">Salmon</div><div class="food-footer"><div class="price">140 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">420 سعرة</span><img src="Lobster.jpg"></div><div class="food-info"><div class="name-ar">استاكوزا</div><div class="name-en">Lobster</div><div class="food-footer"><div class="price">170 ر.س</div></div></div></article>
-        <article class="food-card"><div class="food-img"><span class="cal-badge">380 سعرة</span><img src="Shrimp.jpg"></div><div class="food-info"><div class="name-ar">روبيان</div><div class="name-en">Shrimp</div><div class="food-footer"><div class="price">140 ر.س</div></div></div></article>
-      </div>
-    </section>
-  </main>
+    <div id="summary-list"></div>
+    <button onclick="window.print()" style="width: 100%; margin-top: 20px; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: bold;">طباعة الطلب للشيف</button>
+  </div>
 </div>
 
 <script>
-  window.addEventListener('scroll', () => {
-    let current = "";
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      if (pageYOffset >= sectionTop - 160) {
-        current = section.getAttribute("id");
-      }
-    });
-    document.querySelectorAll(".q-pill").forEach((pill) => {
-      pill.classList.remove("active");
-      if (pill.getAttribute("href").includes(current)) {
-        pill.classList.add("active");
-      }
-    });
-  });
-</script>
+const menuData = [
+  { id: 'soup', title: 'شوربة', items: [
+    { name: 'شوربة روبيان بالكريمه', price: 24, img: 'Cream of Shrimp Soup 1.jpg' },
+    { name: 'شوربة ثمار البحر بالكريمه', price: 24, img: 'Cream of Seafood Soup 1.jpg' },
+    { name: 'شوربة توم يوم', price: 26, img: 'Tom Yum Soup 1.jpg' }
+  ]},
+  { id: 'cold-appetizers', title: 'مقبلات باردة', items: [
+    { name: 'حمص', price: 12, img: 'Hummus 2.jpg' },
+    { name: 'متبل', price: 12, img: 'mutabbal 4.jpg' },
+    { name: 'بابا غنوج', price: 12, img: 'Baba Ghanoush 2.jpg' },
+    { name: 'جرجير', price: 11, img: 'Rocca 1.jpg' },
+    { name: 'تبولة', price: 14, img: 'Tabbouleh 2.jpg' },
+    { name: 'فتوش', price: 14, img: 'Fattoush 1.jpg' },
+    { name: 'سلطه خضراء', price: 13, img: 'Green Salad 1.jpg' },
+    { name: 'خيار باللبن', price: 10, img: 'Cucumber with Yogurt 2.jpg' },
+    { name: 'ميني مازا', price: 25, img: 'Mini Mezze 2.jpg' }
+  ]},
+  { id: 'your-kitchen', title: 'مطبخكم', items: [
+    { name: 'هريس', price: 18, img: 'Harris 1.jpg' },
+    { name: 'جريش', price: 18, img: 'Jarish 1.jpg' },
+    { name: 'مرقوق', price: 19, img: 'Margouk 1.jpg' },
+    { name: 'حمسة روبيان', price: 45, img: 'Shrimp Hamsa 1.jpg' },
+    { name: 'حمسة باذنجان', price: 22, img: 'Eggplant Hamsa 1.jpg' },
+    { name: 'حمسة دجاج', price: 25, img: 'Chicken Hamsa 1.jpg' },
+    { name: 'برياني فيليه', price: 35, img: 'Fillet Biryani 1.jpg' },
+    { name: 'برياني روبيان', price: 50, img: 'Shrimp Biryani 1.jpg' },
+    { name: 'برياني دجاج', price: 35, img: 'Chicken Biryani 1.jpg' },
+    { name: 'مجبوس لحم', price: 75, img: 'Lamb Mahboos 1.jpg' },
+    { name: 'غوزي لحم', price: 75, img: 'Lamb Gozi 1.jpg' }
+  ]},
+  { id: 'our-choice', title: 'اختيارنا', items: [
+    { name: 'فيله مقلي', price: 35, img: 'Fried Fillet.jpg' },
+    { name: 'فيله مشوي', price: 35, img: 'Grilled Fillet.jpg' },
+    { name: 'كنعد مشوي', price: 52, img: 'Grilled Kingfish.jpg' },
+    { name: 'كنعد مقلي', price: 52, img: 'Fried Kingfish.jpg' },
+    { name: 'سميكة الغاف', price: 90, img: 'Ghaf Fish.jpg' },
+    { name: 'روبيان مقلي', price: 48, img: 'Fried Shrimp.jpg' },
+    { name: 'روبيان مشوي', price: 50, img: 'Grilled Shrimp.jpg' },
+    { name: 'قباقب مقلي', price: 39, img: 'Fried Crabs.jpg' },
+    { name: 'قباقب مشوي', price: 39, img: 'Grilled Crabs.jpg' },
+    { name: 'قباقب جبن', price: 42, img: 'Cheese Crabs.jpg' },
+    { name: 'سلمون مشوي', price: 52, img: 'Grilled Salmon.jpg' },
+    { name: 'طاجن سيفود', price: 42, img: 'Seafood Casserole.jpg' },
+    { name: 'بطاطا مقلية', price: 8, img: 'Fried Potatoes.jpg' }
+  ]},
+  { id: 'rices', title: 'عيوش', items: [
+    { name: 'مجبوس دجاج', price: 22, img: 'Chicken Majboos.jpg' },
+    { name: 'مجبوس روبيان', price: 54, img: 'Shrimp Majboos.jpg' },
+    { name: 'مطبق كنعد', price: 52, img: 'Kingfish Matbak.jpg' },
+    { name: 'مطبق زبيدي 500/600', price: 75, img: 'Zubaidi Matbak 500-600.jpg' },
+    { name: 'مطبق روبيان', price: 52, img: 'Shrimp Matbak.jpg' },
+    { name: 'أرز أبيض', price: 8, img: 'White rice.jpg' },
+    { name: 'أرز مطبق', price: 8, img: 'Matbak Rice.jpg' },
+    { name: 'أرز صيادية', price: 8, img: 'Sayyadiyah Rice.jpg' },
+    { name: 'أرز برياني', price: 8, img: 'Biryani rice.jpg' },
+    { name: 'رز صيادية (إضافي)', price: 8, img: 'Sayadieh rice.jpg' }
+  ]},
+  { id: 'drinks', title: 'مشروبات', items: [
+    { name: 'بيبسي', price: 3.5, img: 'Pepsi.jpg' },
+    { name: 'سفن اب', price: 3.5, img: '7UP.jpg' },
+    { name: 'سبرايت', price: 3.5, img: 'Sprite.jpg' },
+    { name: 'ميرندا برتقال', price: 3.5, img: 'Miranda Orange.jpg' },
+    { name: 'دايت بيبسي', price: 3.5, img: 'Diet Pepsi.jpg' },
+    { name: 'دايت سبرايت', price: 3.5, img: 'Diet Sprite.jpg' },
+    { name: 'مياه', price: 2, img: 'Water.jpg' },
+    { name: 'مشروب سعودي كأس', price: 13, img: 'Saudi Drink Cup.jpg' },
+    { name: 'ليمون نعناع', price: 12, img: 'Lemon Mint.jpg' },
+    { name: 'عصير رمان', price: 12, img: 'Pomegranate Juice.jpg' },
+    { name: 'برتقال', price: 14, img: 'Orange.jpg' },
+    { name: 'لبن الغاف', price: 11, img: 'Ghaf Laban.jpg' },
+    { name: 'مشروب سعودي (4 أشخاص)', price: 39, img: 'Saudi Drink (for four people).jpg' }
+  ]},
+  { id: 'sweets', title: 'حلويات', items: [
+    { name: 'ام علي', price: 11, img: 'Umm Ali.jpg' },
+    { name: 'لقيمات', price: 13, img: 'Laqimat.jpg' }
+  ]},
+  { id: 'visitor-package', title: 'جمعتنا', items: [
+    { name: 'طبق الغاف', price: 250, img: 'Ghaf Platter.jpg' },
+    { name: 'وليمة الغاف', price: 450, img: 'Ghaf Face Whiteness.jpg' }
+  ]},
+  { id: 'ghaf-fridge', title: 'ثلاجة الغاف', items: [
+    { name: 'هامور', price: 109, img: 'Hamour.jpg' },
+    { name: 'شعري', price: 84, img: 'Sheri.jpg' },
+    { name: 'دنيس', price: 85, img: 'Dennis.jpg' },
+    { name: 'قاروص', price: 80, img: 'Sibas.jpg' },
+    { name: 'عندق', price: 83, img: 'Andaq.jpg' },
+    { name: 'كنعد', price: 133, img: 'Kanad.jpg' },
+    { name: 'صافي', price: 74, img: 'Safi.jpg' },
+    { name: 'زبيدي', price: 145, img: 'Zubaidi.jpg' },
+    { name: 'سلمون', price: 140, img: 'Salmon.jpg' },
+    { name: 'استاكوزا', price: 170, img: 'Lobster.jpg' },
+    { name: 'روبيان', price: 140, img: 'Shrimp.jpg' }
+  ]}
+];
 
+let cart = {};
+
+function init() {
+  const container = document.getElementById('menu-container');
+  const nav = document.getElementById('pill-nav');
+  menuData.forEach((cat) => {
+    nav.innerHTML += `<a href="#cat-${cat.id}" class="q-pill">${cat.title}</a>`;
+    let itemsHtml = cat.items.map(item => `
+      <article class="food-card" id="card-${item.name}">
+        <div class="check-overlay" onclick="toggleItem('${item.name}', ${item.price})"></div>
+        <div class="food-img" onclick="toggleItem('${item.name}', ${item.price})">
+          <img src="${item.img}" onerror="this.src='https://via.placeholder.com/150?text=الغاف'">
+        </div>
+        <div class="food-info">
+          <div class="name-ar">${item.name}</div>
+          <div class="price">${item.price} ر.س</div>
+        </div>
+        <div class="qty-control">
+          <button class="btn-qty" onclick="updateQty('${item.name}', 1)">+</button>
+          <span class="num-qty" id="qty-${item.name}">1</span>
+          <button class="btn-qty" onclick="updateQty('${item.name}', -1)">-</button>
+        </div>
+      </article>
+    `).join('');
+    container.innerHTML += `<section id="cat-${cat.id}" class="category-section"><h2 class="section-title">${cat.title}</h2><div class="items-grid">${itemsHtml}</div></section>`;
+  });
+}
+
+function toggleItem(name, price) {
+  const card = document.getElementById(`card-${name}`);
+  if (cart[name]) { delete cart[name]; card.classList.remove('selected'); }
+  else { cart[name] = { qty: 1, price: price }; card.classList.add('selected'); document.getElementById(`qty-${name}`).innerText = 1; }
+  updateUI();
+}
+
+function updateQty(name, delta) {
+  if (cart[name]) { cart[name].qty = Math.max(1, cart[name].qty + delta); document.getElementById(`qty-${name}`).innerText = cart[name].qty; updateUI(); }
+}
+
+function updateUI() {
+  const count = Object.keys(cart).length;
+  document.getElementById('checkout-bar').style.display = count > 0 ? 'flex' : 'none';
+  document.getElementById('total-count').innerText = `${count} أصناف مختارة`;
+}
+
+function showSummary() {
+  const list = document.getElementById('summary-list'); list.innerHTML = ''; let total = 0;
+  for (let name in cart) {
+    let itemTotal = cart[name].qty * cart[name].price; total += itemTotal;
+    list.innerHTML += `<div class="summary-item"><span><b>${cart[name].qty}</b> × ${name}</span><span>${itemTotal} ر.س</span></div>`;
+  }
+  list.innerHTML += `<div style="padding:15px; text-align:left; font-size:22px; font-weight:900; color:var(--primary);">الإجمالي: ${total} ر.س</div>`;
+  document.getElementById('order-summary').style.display = 'block';
+}
+
+function hideSummary() { document.getElementById('order-summary').style.display = 'none'; }
+
+init();
+</script>
 </body>
 </html>
